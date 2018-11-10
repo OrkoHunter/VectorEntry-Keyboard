@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/main_textView"
         android:layout_width="356dp"
         android:layout_height="62dp"
         android:layout_marginTop="8dp"
@@ -15,6 +15,8 @@
         android:scrollHorizontally="true"
         android:text="@string/text_main"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:background="@drawable/back"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/main_textView">
 
         <TableRow
             android:layout_width="match_parent"

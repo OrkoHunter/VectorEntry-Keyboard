@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">VectorEntry</string>
-    <string name="text_main">Text Appears here</string>
+    <string name="text_main"></string>
     <string name="btn12">⇘\nSave</string>
-    <string name="btn11">⇓\n+ - /</string>
+    <string name="btn11">⇓\n+ - * /</string>
     <string name="btn10">⇙\n: ; !</string>
     <string name="btn9">↘\nw x y z</string>
     <string name="btn8">↓\nt u v</string>

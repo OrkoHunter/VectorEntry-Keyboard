@@ -6,4 +6,195 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="356dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="8dp"
+        android:padding="8dp"
+        android:scrollHorizontally="true"
+        android:text="@string/text_main"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="368dp"
+        android:layout_height="481dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn1"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn1"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="78dp" />
+
+            <TextView
+                android:id="@+id/btn2"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn2"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="120dp"
+                tools:layout_editor_absoluteY="78dp" />
+
+            <TextView
+                android:id="@+id/btn3"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn3"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+
+            <TextView
+                android:id="@+id/btn4"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn4"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="184dp" />
+
+            <TextView
+                android:id="@+id/btn5"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn5"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="126dp"
+                tools:layout_editor_absoluteY="193dp" />
+
+            <TextView
+                android:id="@+id/btn6"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn6"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="214dp"
+                tools:layout_editor_absoluteY="219dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btn7"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn7"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="38dp"
+                tools:layout_editor_absoluteY="273dp" />
+
+            <TextView
+                android:id="@+id/btn8"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn8"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="176dp"
+                tools:layout_editor_absoluteY="356dp" />
+
+            <TextView
+                android:id="@+id/btn9"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn9"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="27dp"
+                tools:layout_editor_absoluteY="345dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/btn10"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn10"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="14dp"
+                tools:layout_editor_absoluteY="469dp" />
+
+            <TextView
+                android:id="@+id/btn11"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn11"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="120dp"
+                tools:layout_editor_absoluteY="469dp" />
+
+            <TextView
+                android:id="@+id/btn12"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:background="@drawable/back"
+                android:gravity="center"
+                android:text="@string/btn12"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="201dp"
+                tools:layout_editor_absoluteY="481dp" />
+        </TableRow>
+
+    </TableLayout>
+
 </android.support.constraint.ConstraintLayout>

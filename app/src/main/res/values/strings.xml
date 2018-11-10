@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">VectorEntry</string>
+    <string name="text_main">Text Appears here</string>
+    <string name="btn12">⇘\nSave</string>
+    <string name="btn11">⇓\n+ - /</string>
+    <string name="btn10">⇙\n: ; !</string>
+    <string name="btn9">↘\nw x y z</string>
+    <string name="btn8">↓\nt u v</string>
+    <string name="btn7">↙\np q r s</string>
+    <string name="btn6">→\nm n o</string>
+    <string name="btn5">⦿\nj k l</string>
+    <string name="btn4">←\ng h i</string>
+    <string name="btn3">↗\nd e f</string>
+    <string name="btn2">↑\na b c</string>
+    <string name="btn1">↖\n. ? , "</string>
 </resources>

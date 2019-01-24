@@ -1,5 +1,6 @@
 package net.orkohunter.vectorentry;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean GROUP_SELECTION = true; // true = selecting a group; false = select an element of the group
     private int SELECTED_GROUP = -1; // From 0 to 11
+
+    private int timeToSelectGroup = 5000;  // in miliseconds
 
     private ArrayList<ArrayList<String>> listOfGroups = new ArrayList<ArrayList<String>>();
 
@@ -64,7 +67,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void createListOfGroups() {
+        // The first char of each group is selected with 5 second wait
+        // and not by the second gesture
         ArrayList<String> group1 = new ArrayList<String>();
+        group1.add("1");
         group1.add(".");
         group1.add("?");
         group1.add(",");
@@ -72,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group1);
 
         ArrayList<String> group2 = new ArrayList<String>();
+        group2.add("2");
         group2.add("a");
         group2.add("b");
         group2.add("c");
@@ -80,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<String> group3 = new ArrayList<String>();
+        group3.add("3");
         group3.add("d");
         group3.add("e");
         group3.add("f");
@@ -87,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group3);
 
         ArrayList<String> group4 = new ArrayList<String>();
+        group4.add("4");
         group4.add("g");
         group4.add("h");
         group4.add("i");
@@ -95,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<String> group5 = new ArrayList<String>();
+        group5.add("5");
         group5.add("j");
         group5.add("k");
         group5.add("l");
@@ -102,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group5);
 
         ArrayList<String> group6 = new ArrayList<String>();
+        group6.add("6");
         group6.add("m");
         group6.add("n");
         group6.add("o");
@@ -110,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<String> group7 = new ArrayList<String>();
+        group7.add("7");
         group7.add("p");
         group7.add("q");
         group7.add("r");
@@ -118,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group7);
 
         ArrayList<String> group8 = new ArrayList<String>();
+        group8.add("8");
         group8.add("t");
         group8.add("u");
         group8.add("v");
@@ -126,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<String> group9 = new ArrayList<String>();
+        group9.add("9");
         group9.add("w");
         group9.add("x");
         group9.add("y");
@@ -134,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group9);
 
         ArrayList<String> group10 = new ArrayList<String>();
+        group10.add("");
         group10.add(":");
         group10.add(";");
         group10.add("!");
@@ -142,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<String> group11 = new ArrayList<String>();
+        group11.add("0");
         group11.add("+");
         group11.add("-");
         group11.add("*");
@@ -150,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group11);
 
         ArrayList<String> group12 = new ArrayList<String>();
+        group12.add("");
         group12.add("Quit");
 
         listOfGroups.add(group12);
@@ -165,10 +182,39 @@ public class MainActivity extends AppCompatActivity {
         return direction;
     }
 
+    public void selectGroup(int groupNo) {
+        SELECTED_GROUP = groupNo;
+        // Create timer
+        CountDownTimer waitTimer = new CountDownTimer(timeToSelectGroup, timeToSelectGroup) {
+
+            public void onTick(long millisUntilFinished) {
+                //called every tick milliseconds, which could be used to
+                //send messages or some other action
+            }
+
+            public void onFinish() {
+                //After finish milliseconds, finish current
+                //if you would like to execute something when time finishes
+                if (!GROUP_SELECTION) {
+                    // No alphabet has been selected so far
+                    // Choose the number of the selected group
+                    try {
+                        String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(0);
+                        appendText(chars_to_append);
+                    } catch (IndexOutOfBoundsException e) {
+                        // pass
+                    }
+                    GROUP_SELECTION = !GROUP_SELECTION;
+                }
+            }
+        }.start();
+
+    }
+
     public void action_top_left() {
         Log.d(DEBUG_TAG, "Top left");
         if (GROUP_SELECTION) {
-            SELECTED_GROUP = 0;
+            selectGroup(0);
         }
 
         GROUP_SELECTION = !GROUP_SELECTION;
@@ -177,57 +223,7 @@ public class MainActivity extends AppCompatActivity {
     public void action_top() {
         Log.d(DEBUG_TAG, "Top");
         if (GROUP_SELECTION) {
-            SELECTED_GROUP = 1;
-        } else {
-            try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(1);
-                appendText(chars_to_append);
-            } catch (IndexOutOfBoundsException e) {
-                // pass
-            }
-        }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
-    }
-
-    public void action_top_right() {
-        Log.d(DEBUG_TAG, "Top right");
-        if (GROUP_SELECTION) {
-            SELECTED_GROUP = 2;
-        }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
-    }
-
-    public void action_right() {
-        Log.d(DEBUG_TAG, "Right");
-        if (GROUP_SELECTION) {
-            SELECTED_GROUP = 5;
-        } else {
-            try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(3);
-                appendText(chars_to_append);
-            } catch (IndexOutOfBoundsException e) {
-                // pass
-            }
-        }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
-    }
-
-    public void action_bottom_right() {
-        Log.d(DEBUG_TAG, "Bottom Right");
-        if (GROUP_SELECTION) {
-            SELECTED_GROUP = 8;
-        }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
-    }
-
-    public void action_bottom() {
-        Log.d(DEBUG_TAG, "Bottom");
-        if (GROUP_SELECTION) {
-            SELECTED_GROUP = 7;
+            selectGroup(1);
         } else {
             try {
                 String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(2);
@@ -240,10 +236,60 @@ public class MainActivity extends AppCompatActivity {
         GROUP_SELECTION = !GROUP_SELECTION;
     }
 
+    public void action_top_right() {
+        Log.d(DEBUG_TAG, "Top right");
+        if (GROUP_SELECTION) {
+            selectGroup(2);
+        }
+
+        GROUP_SELECTION = !GROUP_SELECTION;
+    }
+
+    public void action_right() {
+        Log.d(DEBUG_TAG, "Right");
+        if (GROUP_SELECTION) {
+            selectGroup(5);
+        } else {
+            try {
+                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(4);
+                appendText(chars_to_append);
+            } catch (IndexOutOfBoundsException e) {
+                // pass
+            }
+        }
+
+        GROUP_SELECTION = !GROUP_SELECTION;
+    }
+
+    public void action_bottom_right() {
+        Log.d(DEBUG_TAG, "Bottom Right");
+        if (GROUP_SELECTION) {
+            selectGroup(8);
+        }
+
+        GROUP_SELECTION = !GROUP_SELECTION;
+    }
+
+    public void action_bottom() {
+        Log.d(DEBUG_TAG, "Bottom");
+        if (GROUP_SELECTION) {
+            selectGroup(7);
+        } else {
+            try {
+                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(3);
+                appendText(chars_to_append);
+            } catch (IndexOutOfBoundsException e) {
+                // pass
+            }
+        }
+
+        GROUP_SELECTION = !GROUP_SELECTION;
+    }
+
     public void action_bottom_left() {
         Log.d(DEBUG_TAG, "Bottom Left");
         if (GROUP_SELECTION) {
-            SELECTED_GROUP = 6;
+            selectGroup(6);
         }
 
         GROUP_SELECTION = !GROUP_SELECTION;
@@ -252,10 +298,10 @@ public class MainActivity extends AppCompatActivity {
     public void action_left() {
         Log.d(DEBUG_TAG, "Left");
         if (GROUP_SELECTION) {
-            SELECTED_GROUP = 3;
+            selectGroup(3);
         } else {
             try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(0);
+                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(1);
                 appendText(chars_to_append);
             } catch (IndexOutOfBoundsException e) {
                 // pass
@@ -269,7 +315,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Long Press");
 
         if (GROUP_SELECTION) {
-            SELECTED_GROUP = 4;
+            selectGroup(4);
         }
 
         GROUP_SELECTION = !GROUP_SELECTION;
@@ -281,7 +327,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView main_textView = (TextView) findViewById(R.id.main_textView);
         String cur_text = (String) main_textView.getText();
-        main_textView.setText(cur_text.substring(0, cur_text.length() - 1));
+        if (cur_text.length() > 0) main_textView.setText(cur_text.substring(0, cur_text.length() - 1));
     }
 
 

@@ -201,10 +201,13 @@ public class MainActivity extends AppCompatActivity {
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
-                        mp.release();
+                        mediaPlayer.release();
                     }
                 });
 
+                Log.d(DEBUG_TAG, "validswipingstate = " + Boolean.toString(validSwipingState));
+                Log.d(DEBUG_TAG, "GROUP_SELECTION = " + Boolean.toString(GROUP_SELECTION));
+                Log.d(DEBUG_TAG, "SELECTED_GROUP = " + Integer.toString(SELECTED_GROUP));
             }
 
             public void onFinish() {
@@ -213,11 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!GROUP_SELECTION) {
                     // No alphabet has been selected so far
                     // Choose the number of the selected group
-                    try {
-                        selectChar(0);
-                    } catch (IndexOutOfBoundsException e) {
-                        // pass
-                    }
+                    selectChar(0);
                     GROUP_SELECTION = !GROUP_SELECTION;
                 }
             }
@@ -275,7 +274,7 @@ public class MainActivity extends AppCompatActivity {
         mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
-                mp.release();
+                mediaPlayer.release();
                 validSwipingState = true;
             }
         });
@@ -287,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
 
         int soundFile = getSoundFile(chars_to_append);
 
-        Log.d(DEBUG_TAG, "Sound file " + Integer.toString(soundFile));
+        Log.d(DEBUG_TAG, "Sound file " + Integer.toString(soundFile) + " for letter " + chars_to_append);
 
         if (soundFile != -1) {
             playSoundFile(soundFile);
@@ -298,9 +297,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Top left");
         if (GROUP_SELECTION) {
             selectGroup(0);
+            GROUP_SELECTION = !GROUP_SELECTION;
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_top() {
@@ -323,9 +321,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Top right");
         if (GROUP_SELECTION) {
             selectGroup(2);
+            GROUP_SELECTION = !GROUP_SELECTION;
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_right() {
@@ -349,9 +346,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Bottom Right");
         if (GROUP_SELECTION) {
             selectGroup(8);
+            GROUP_SELECTION = !GROUP_SELECTION;
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_bottom() {
@@ -375,9 +371,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Bottom Left");
         if (GROUP_SELECTION) {
             selectGroup(6);
+            GROUP_SELECTION = !GROUP_SELECTION;
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_left() {
@@ -401,9 +396,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (GROUP_SELECTION) {
             selectGroup(4);
+            GROUP_SELECTION = !GROUP_SELECTION;
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
 
@@ -479,7 +473,11 @@ public class MainActivity extends AppCompatActivity {
             endX = e2.getRawX();
             endY = e2.getRawY();
 
-            if (validSwipingState) checkMovement();
+//          if (validSwipingState) checkMovement();
+            // There is some bug in using validSwipingState
+            // The sound file does not play in some cases
+            // Thus it's not possible to turn back validSwipingState to true
+            checkMovement();
 
             return true;
         }
@@ -490,7 +488,9 @@ public class MainActivity extends AppCompatActivity {
             float x = e.getX();
             float y = e.getY();
 
-            if (validSwipingState) action_doubletap();
+//            if (validSwipingState) action_doubletap();
+
+            action_doubletap();
 
             return true;
         }

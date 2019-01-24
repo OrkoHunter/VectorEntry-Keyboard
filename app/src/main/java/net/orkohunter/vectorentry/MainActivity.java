@@ -1,11 +1,13 @@
 package net.orkohunter.vectorentry;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.widget.TextView;
 
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private int timeToSelectGroup = 5000;  // in miliseconds
 
     private ArrayList<ArrayList<String>> listOfGroups = new ArrayList<ArrayList<String>>();
+
+    MediaPlayer mp = new MediaPlayer();
+    CountDownTimer waitTimer;
 
     GestureDetector gestureDetector;
 
@@ -185,11 +190,21 @@ public class MainActivity extends AppCompatActivity {
     public void selectGroup(int groupNo) {
         SELECTED_GROUP = groupNo;
         // Create timer
-        CountDownTimer waitTimer = new CountDownTimer(timeToSelectGroup, timeToSelectGroup) {
+        waitTimer = new CountDownTimer(timeToSelectGroup, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                //called every tick milliseconds, which could be used to
+                //called every second, which could be used to
                 //send messages or some other action
+
+                mp = MediaPlayer.create(getApplicationContext(), R.raw.tick);
+                mp.start();
+                mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mediaPlayer) {
+                        mp.release();
+                    }
+                });
+
             }
 
             public void onFinish() {
@@ -228,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(2);
                 appendText(chars_to_append);
+                waitTimer.cancel();
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
@@ -253,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(4);
                 appendText(chars_to_append);
+                waitTimer.cancel();
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
@@ -278,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(3);
                 appendText(chars_to_append);
+                waitTimer.cancel();
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
@@ -303,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(1);
                 appendText(chars_to_append);
+                waitTimer.cancel();
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }

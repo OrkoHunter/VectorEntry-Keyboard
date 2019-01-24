@@ -214,8 +214,7 @@ public class MainActivity extends AppCompatActivity {
                     // No alphabet has been selected so far
                     // Choose the number of the selected group
                     try {
-                        String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(0);
-                        appendText(chars_to_append);
+                        selectChar(0);
                     } catch (IndexOutOfBoundsException e) {
                         // pass
                     }
@@ -224,6 +223,75 @@ public class MainActivity extends AppCompatActivity {
             }
         }.start();
 
+    }
+
+    public int getSoundFile(String letter) {
+        switch (letter) {
+            case "a": return R.raw.a;
+            case "b": return R.raw.b;
+            case "c": return R.raw.c;
+            case "d": return R.raw.d;
+            case "e": return R.raw.e;
+            case "f": return R.raw.f;
+            case "g": return R.raw.g;
+            case "h": return R.raw.h;
+            case "i": return R.raw.i;
+            case "j": return R.raw.j;
+            case "k": return R.raw.k;
+            case "l": return R.raw.l;
+            case "m": return R.raw.m;
+            case "n": return R.raw.n;
+            case "o": return R.raw.o;
+            case "p": return R.raw.p;
+            case "q": return R.raw.q;
+            case "r": return R.raw.r;
+            case "s": return R.raw.s;
+            case "t": return R.raw.t;
+            case "u": return R.raw.u;
+            case "v": return R.raw.v;
+            case "w": return R.raw.w;
+            case "x": return R.raw.x;
+            case "y": return R.raw.y;
+            case "z": return R.raw.z;
+            case "0": return R.raw.zero;
+            case "1": return R.raw.one;
+            case "2": return R.raw.two;
+            case "3": return R.raw.three;
+            case "4": return R.raw.four;
+            case "5": return R.raw.five;
+            case "6": return R.raw.six;
+            case "7": return R.raw.seven;
+            case "8": return R.raw.eight;
+            case "9": return R.raw.nine;
+        }
+
+        return -1;
+    }
+
+    public void playSoundFile(int soundFile) {
+        mp = MediaPlayer.create(getApplicationContext(), soundFile);
+        validSwipingState = false;
+        mp.start();
+        mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mp.release();
+                validSwipingState = true;
+            }
+        });
+    }
+
+    public void selectChar(int index) {
+        String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(index);
+        appendText(chars_to_append);
+
+        int soundFile = getSoundFile(chars_to_append);
+
+        Log.d(DEBUG_TAG, "Sound file " + Integer.toString(soundFile));
+
+        if (soundFile != -1) {
+            playSoundFile(soundFile);
+        }
     }
 
     public void action_top_left() {
@@ -239,17 +307,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Top");
         if (GROUP_SELECTION) {
             selectGroup(1);
+            GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(2);
-                appendText(chars_to_append);
+                selectChar(2);
                 waitTimer.cancel();
+                GROUP_SELECTION = !GROUP_SELECTION;
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_top_right() {
@@ -265,17 +332,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Right");
         if (GROUP_SELECTION) {
             selectGroup(5);
+            GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(4);
-                appendText(chars_to_append);
+                selectChar(4);
                 waitTimer.cancel();
+                GROUP_SELECTION = !GROUP_SELECTION;
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
         }
 
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_bottom_right() {
@@ -291,17 +358,17 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Bottom");
         if (GROUP_SELECTION) {
             selectGroup(7);
+            GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(3);
-                appendText(chars_to_append);
+                selectChar(3);
                 waitTimer.cancel();
+                GROUP_SELECTION = !GROUP_SELECTION;
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
         }
 
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_bottom_left() {
@@ -317,17 +384,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Left");
         if (GROUP_SELECTION) {
             selectGroup(3);
+            GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
-                String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(1);
-                appendText(chars_to_append);
+                selectChar(1);
                 waitTimer.cancel();
+                GROUP_SELECTION = !GROUP_SELECTION;
             } catch (IndexOutOfBoundsException e) {
                 // pass
             }
         }
-
-        GROUP_SELECTION = !GROUP_SELECTION;
     }
 
     public void action_longpress() {
@@ -424,7 +490,7 @@ public class MainActivity extends AppCompatActivity {
             float x = e.getX();
             float y = e.getY();
 
-            action_doubletap();
+            if (validSwipingState) action_doubletap();
 
             return true;
         }

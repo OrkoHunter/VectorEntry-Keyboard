@@ -454,7 +454,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
-        return gestureDetector.onTouchEvent(event);
+        gestureDetector.onTouchEvent(event);
+
+        return true;
 
     }
 
@@ -465,6 +467,8 @@ public class MainActivity extends AppCompatActivity {
             startX = e.getRawX();
             startY = e.getRawY();
             Log.d(DEBUG_TAG,"Action was DOWN");
+
+            Log.d(DEBUG_TAG, "pointer count" + Integer.toString(e.getPointerCount()));
 
             return true;
         }
@@ -478,6 +482,8 @@ public class MainActivity extends AppCompatActivity {
             // The sound file does not play in some cases
             // Thus it's not possible to turn back validSwipingState to true
             checkMovement();
+
+//            Log.d(DEBUG_TAG, "pointer count" + Integer.toString(e1.getPointerCount()));
 
             return true;
         }

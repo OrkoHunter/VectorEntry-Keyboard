@@ -332,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
             GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
-                selectChar(4);
+                selectChar(3);
                 waitTimer.cancel();
                 GROUP_SELECTION = !GROUP_SELECTION;
             } catch (IndexOutOfBoundsException e) {
@@ -357,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
             GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
-                selectChar(3);
+                selectChar(4);
                 waitTimer.cancel();
                 GROUP_SELECTION = !GROUP_SELECTION;
             } catch (IndexOutOfBoundsException e) {

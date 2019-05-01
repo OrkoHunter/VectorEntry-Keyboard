@@ -53,4 +53,4 @@ If no second move is made within five seconds, then the number of that key is in
 
 To select `q`, we first select the group of Key 7 by doing a bottom-left flick. We then do an `up` flick because `q` is the second character in the group.
 
-![Example to enter q](images/how-to-select-q.png)
+![Example to enter q](images/how-to-select-q-new.png)

@@ -33,16 +33,16 @@ Select the group by the gesture associated with it. If you want to enter a numbe
 
 # Step 2: Select a character from the group
 
-The next gesture determines which character to choose from the selected group. The directions have the following meaning -
+The next gesture determines which character to choose from the selected group. The directions have the following meaning (clockwise directions) -
 
 ```
 Left flick - First
 
 Top flick - Second
 
-Bottom flick - Third
+Right flick - Third
 
-Right flick - Fourth
+Bottom flick - Fourth
 ```
 
 A group can have maximum 4 possible characters. For example, the group of Key 9 has (1) `w`, (2) `x`, (3) `y` and (4) `z` possibilities. To select `y`, we will do the bottom flick.

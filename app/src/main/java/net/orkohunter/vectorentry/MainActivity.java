@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean GROUP_SELECTION = true; // true = selecting a group; false = select an element of the group
     private int SELECTED_GROUP = -1; // From 0 to 11
 
+    private boolean single_tap_mode = false;  // For selecting groups under single tap
+
     private int timeToSelectGroup = 5000;  // in miliseconds
 
     private ArrayList<ArrayList<String>> listOfGroups = new ArrayList<ArrayList<String>>();
@@ -76,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
         // and not by the second gesture
         ArrayList<String> group1 = new ArrayList<String>();
         group1.add("1");
+        group1.add(",");
         group1.add(".");
         group1.add("?");
-        group1.add(",");
+        group1.add("\"");
+
 
         listOfGroups.add(group1);
 
@@ -153,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         listOfGroups.add(group9);
 
         ArrayList<String> group10 = new ArrayList<String>();
-        group10.add("");
+        group10.add("@");
         group10.add(":");
         group10.add(";");
         group10.add("!");
@@ -165,16 +169,23 @@ public class MainActivity extends AppCompatActivity {
         group11.add("0");
         group11.add("+");
         group11.add("-");
-        group11.add("*");
         group11.add("/");
+        group11.add("*");
 
         listOfGroups.add(group11);
 
         ArrayList<String> group12 = new ArrayList<String>();
-        group12.add("");
-        group12.add("Quit");
+        group12.add("#");
+        group12.add(" ");
 
         listOfGroups.add(group12);
+
+        ArrayList<String> group13 = new ArrayList<String>();
+        group13.add("");
+        group13.add("QUIT");
+
+        listOfGroups.add(group13);
+
     }
 
     public double calculateAngle() {
@@ -188,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectGroup(int groupNo) {
-        SELECTED_GROUP = groupNo;
+        SELECTED_GROUP = groupNo - 1;
         // Create timer
         waitTimer = new CountDownTimer(timeToSelectGroup, 1000) {
 
@@ -281,7 +292,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectChar(int index) {
+//        Log.d(DEBUG_TAG, Integer.toString(SELECTED_GROUP));
+//        Log.d(DEBUG_TAG, Integer.toString(index));
         String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(index);
+        if (chars_to_append.equals("QUIT")) {
+            System.exit(0);
+        }
         appendText(chars_to_append);
 
         int soundFile = getSoundFile(chars_to_append);
@@ -295,8 +311,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void action_top_left() {
         Log.d(DEBUG_TAG, "Top left");
-        if (GROUP_SELECTION) {
-            selectGroup(0);
+        if (GROUP_SELECTION && !single_tap_mode) {
+            selectGroup(1);
             GROUP_SELECTION = !GROUP_SELECTION;
         }
     }
@@ -304,7 +320,12 @@ public class MainActivity extends AppCompatActivity {
     public void action_top() {
         Log.d(DEBUG_TAG, "Top");
         if (GROUP_SELECTION) {
-            selectGroup(1);
+            if (single_tap_mode) {
+                selectGroup(11);
+                single_tap_mode = false;
+            } else {
+                selectGroup(2);
+            }
             GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
@@ -320,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
     public void action_top_right() {
         Log.d(DEBUG_TAG, "Top right");
         if (GROUP_SELECTION) {
-            selectGroup(2);
+            selectGroup(3);
             GROUP_SELECTION = !GROUP_SELECTION;
         }
     }
@@ -328,7 +349,12 @@ public class MainActivity extends AppCompatActivity {
     public void action_right() {
         Log.d(DEBUG_TAG, "Right");
         if (GROUP_SELECTION) {
-            selectGroup(5);
+            if (single_tap_mode) {
+                selectGroup(12);
+                single_tap_mode = false;
+            } else {
+                selectGroup(6);
+            }
             GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
@@ -345,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
     public void action_bottom_right() {
         Log.d(DEBUG_TAG, "Bottom Right");
         if (GROUP_SELECTION) {
-            selectGroup(8);
+            selectGroup(9);
             GROUP_SELECTION = !GROUP_SELECTION;
         }
     }
@@ -353,7 +379,12 @@ public class MainActivity extends AppCompatActivity {
     public void action_bottom() {
         Log.d(DEBUG_TAG, "Bottom");
         if (GROUP_SELECTION) {
-            selectGroup(7);
+            if (single_tap_mode) {
+                selectGroup(13);
+                single_tap_mode = false;
+            } else {
+                selectGroup(8);
+            }
             GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
@@ -370,7 +401,7 @@ public class MainActivity extends AppCompatActivity {
     public void action_bottom_left() {
         Log.d(DEBUG_TAG, "Bottom Left");
         if (GROUP_SELECTION) {
-            selectGroup(6);
+            selectGroup(7);
             GROUP_SELECTION = !GROUP_SELECTION;
         }
     }
@@ -378,7 +409,12 @@ public class MainActivity extends AppCompatActivity {
     public void action_left() {
         Log.d(DEBUG_TAG, "Left");
         if (GROUP_SELECTION) {
-            selectGroup(3);
+            if (single_tap_mode) {
+                selectGroup(10);
+                single_tap_mode = false;
+            } else {
+                selectGroup(4);
+            }
             GROUP_SELECTION = !GROUP_SELECTION;
         } else {
             try {
@@ -395,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(DEBUG_TAG, "Long Press");
 
         if (GROUP_SELECTION) {
-            selectGroup(4);
+            selectGroup(5);
             GROUP_SELECTION = !GROUP_SELECTION;
         }
     }
@@ -407,6 +443,13 @@ public class MainActivity extends AppCompatActivity {
         TextView main_textView = (TextView) findViewById(R.id.main_textView);
         String cur_text = (String) main_textView.getText();
         if (cur_text.length() > 0) main_textView.setText(cur_text.substring(0, cur_text.length() - 1));
+    }
+
+
+    public void action_singletap() {
+        Log.d(DEBUG_TAG, "Single Tap");
+
+        single_tap_mode = true;
     }
 
 
@@ -504,6 +547,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onLongPress(MotionEvent e) {
             action_longpress();
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            float x = e.getX();
+            float y = e.getY();
+
+            action_singletap();
+            return true;
         }
 
         // Read this for two finger tap https://stackoverflow.com/questions/12414680/how-to-implement-a-two-finger-double-click-in-android

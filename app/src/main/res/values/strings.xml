@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">VectorEntry</string>
     <string name="text_main"></string>
-    <string name="btn12">Tap and →\n(#)\nSpace</string>
-    <string name="btn11">Tap and ↑\n(0)\n+ - / *</string>
-    <string name="btn10">Tap and ←\n(@)\n: ; !</string>
+    <string name="btn12">2f Tap and →\n(#)\nSpace</string>
+    <string name="btn11">2f Tap and ↑\n(0)\n+ - / *</string>
+    <string name="btn10">2f Tap and ←\n(@)\n: ; !</string>
     <string name="btn9">↘\n(9)\nw x y z</string>
     <string name="btn8">↓\n(8)\nt u v</string>
     <string name="btn7">↙\n(7)\np q r s</string>

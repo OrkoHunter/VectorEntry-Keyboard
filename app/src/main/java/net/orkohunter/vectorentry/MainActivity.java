@@ -9,9 +9,12 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import net.orkohunter.vectorentry.SimpleTwoFingerDoubleTapDetector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean GROUP_SELECTION = true; // true = selecting a group; false = select an element of the group
     private int SELECTED_GROUP = -1; // From 0 to 11
 
-    private boolean single_tap_mode = false;  // For selecting groups under single tap
+    private boolean twofinger_single_tap_mode = false;  // For selecting groups under single tap
 
     private int timeToSelectGroup = 5000;  // in miliseconds
 
@@ -36,6 +39,19 @@ public class MainActivity extends AppCompatActivity {
     CountDownTimer waitTimer;
 
     GestureDetector gestureDetector;
+
+    SimpleTwoFingerDoubleTapDetector multiTouchListener = new SimpleTwoFingerDoubleTapDetector() {
+        @Override
+        public void onTwoFingerSingleTap() {
+            action_twofinger_singletap();
+        }
+
+        @Override
+        public void onTwoFingerDoubleTap() {
+            // Do what you want here, I used a Toast for demonstration
+            Toast.makeText(MainActivity.this, "Two Finger Double Tap", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 
     @Override
@@ -71,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         createListOfGroups();
 
         gestureDetector = new GestureDetector(getApplicationContext(), new GestureListener());
+
     }
 
     public void createListOfGroups() {
@@ -311,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void action_top_left() {
         Log.d(DEBUG_TAG, "Top left");
-        if (GROUP_SELECTION && !single_tap_mode) {
+        if (GROUP_SELECTION && !twofinger_single_tap_mode) {
             selectGroup(1);
             GROUP_SELECTION = !GROUP_SELECTION;
         }
@@ -320,9 +337,9 @@ public class MainActivity extends AppCompatActivity {
     public void action_top() {
         Log.d(DEBUG_TAG, "Top");
         if (GROUP_SELECTION) {
-            if (single_tap_mode) {
+            if (twofinger_single_tap_mode) {
                 selectGroup(11);
-                single_tap_mode = false;
+                twofinger_single_tap_mode = false;
             } else {
                 selectGroup(2);
             }
@@ -349,9 +366,9 @@ public class MainActivity extends AppCompatActivity {
     public void action_right() {
         Log.d(DEBUG_TAG, "Right");
         if (GROUP_SELECTION) {
-            if (single_tap_mode) {
+            if (twofinger_single_tap_mode) {
                 selectGroup(12);
-                single_tap_mode = false;
+                twofinger_single_tap_mode = false;
             } else {
                 selectGroup(6);
             }
@@ -379,9 +396,9 @@ public class MainActivity extends AppCompatActivity {
     public void action_bottom() {
         Log.d(DEBUG_TAG, "Bottom");
         if (GROUP_SELECTION) {
-            if (single_tap_mode) {
+            if (twofinger_single_tap_mode) {
                 selectGroup(13);
-                single_tap_mode = false;
+                twofinger_single_tap_mode = false;
             } else {
                 selectGroup(8);
             }
@@ -409,9 +426,9 @@ public class MainActivity extends AppCompatActivity {
     public void action_left() {
         Log.d(DEBUG_TAG, "Left");
         if (GROUP_SELECTION) {
-            if (single_tap_mode) {
+            if (twofinger_single_tap_mode) {
                 selectGroup(10);
-                single_tap_mode = false;
+                twofinger_single_tap_mode = false;
             } else {
                 selectGroup(4);
             }
@@ -446,10 +463,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void action_singletap() {
-        Log.d(DEBUG_TAG, "Single Tap");
+    public void action_twofinger_singletap() {
+        Log.d(DEBUG_TAG, "Two finger Single Tap");
 
-        single_tap_mode = true;
+        twofinger_single_tap_mode = true;
     }
 
 
@@ -497,6 +514,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event){
 
+        // Custom class for two finger taps
+        if(multiTouchListener.onTouchEvent(event))
+            return true;
+
         gestureDetector.onTouchEvent(event);
 
         return true;
@@ -510,8 +531,6 @@ public class MainActivity extends AppCompatActivity {
             startX = e.getRawX();
             startY = e.getRawY();
             Log.d(DEBUG_TAG,"Action was DOWN");
-
-            Log.d(DEBUG_TAG, "pointer count" + Integer.toString(e.getPointerCount()));
 
             return true;
         }
@@ -554,10 +573,14 @@ public class MainActivity extends AppCompatActivity {
             float x = e.getX();
             float y = e.getY();
 
-            action_singletap();
+            // action_twofinger_singletap();
+            // Do nothing
             return true;
         }
 
         // Read this for two finger tap https://stackoverflow.com/questions/12414680/how-to-implement-a-two-finger-double-click-in-android
     }
+
+
+
 }

@@ -208,7 +208,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Tap and ↓ followed by ← to Exit the app"
+        android:text="2f Tap and ↓ followed by ← to Exit the app\n*2f Tap = Two finger tap"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tableLayout"

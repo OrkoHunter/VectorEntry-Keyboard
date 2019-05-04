@@ -12,22 +12,23 @@ VectorEntry is a two-step procedure to input one character.
 
 # Step 1: Group Selection
 
-| Alphabets   | Group  | Flick direction/type      |
-| ----------- | ------ | ------------------------- |
-| [, . ? ”]   | Key 1  | bottom to left ( ↖)       |
-| [a b c]     | Key 2  | up ( ↑ )                  |
-| [d e f]     | Key 3  | bottom to right ( ↗ )     |
-| [g h i]     | Key 4  | left ( ←)                 |
-| [j k l]     | Key 5  | long press ( ⦿ )          |
-| [m n o]     | Key 6  | right ( → )               |
-| [p q r s]   | Key 7  | top to left ( ↙ )         |
-| [t u v]     | Key 8  | down ( ↓ )                |
-| [w x y z]   | Key 9  | top to right ( ↘ )        |
-| [: ; !]     | Key @  | Two Finger Tap and Left   |
-| [+ - / *]   | Key 0  | Two Finger Tap and Up     |
-| ['Space']   | Key #  | Two Finger Tap and Right  |
-| ['Quit']    | NA     | Two Finger Tap and Down   |
-| backspace   | NA     | Double Tap                |
+| Alphabets   | Group  | Flick direction/type       |
+| ----------- | ------ | -------------------------- |
+| [, . ? ”]   | Key 1  | bottom to left ( ↖ )       |
+| [a b c]     | Key 2  | up ( ↑ )                   |
+| [d e f]     | Key 3  | bottom to right ( ↗ )      |
+| [g h i]     | Key 4  | left ( ← )                 |
+| [j k l]     | Key 5  | double tap                 |
+| [m n o]     | Key 6  | right ( → )                |
+| [p q r s]   | Key 7  | top to left ( ↙ )          |
+| [t u v]     | Key 8  | down ( ↓ )                 |
+| [w x y z]   | Key 9  | top to right ( ↘ )         |
+| Space       | NA     | right ( → ) and down ( ↓ ) |
+| Backspace   | NA     | left ( ← ) and down ( ↓ )  |
+| [: ; !]     | Key @  | Two Finger Tap and Left    |
+| [+ - / *]   | Key 0  | Two Finger Tap and Up      |
+| ['Quit']    | Key #  | Two Finger Tap and Right   |
+
 
 Select the group by the gesture associated with it. If you want to enter a number, select the group of that Key.
 

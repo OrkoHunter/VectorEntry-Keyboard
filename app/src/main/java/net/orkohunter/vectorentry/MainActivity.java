@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         group4.add("g");
         group4.add("h");
         group4.add("i");
+        group4.add("BACKSPACE");
 
         listOfGroups.add(group4);
 
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         group6.add("m");
         group6.add("n");
         group6.add("o");
+        group6.add(" ");
 
         listOfGroups.add(group6);
 
@@ -193,13 +195,12 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayList<String> group12 = new ArrayList<String>();
         group12.add("#");
-        group12.add(" ");
+        group12.add("QUIT");
 
         listOfGroups.add(group12);
 
         ArrayList<String> group13 = new ArrayList<String>();
         group13.add("");
-        group13.add("QUIT");
 
         listOfGroups.add(group13);
 
@@ -314,15 +315,21 @@ public class MainActivity extends AppCompatActivity {
         String chars_to_append = listOfGroups.get(SELECTED_GROUP).get(index);
         if (chars_to_append.equals("QUIT")) {
             System.exit(0);
-        }
-        appendText(chars_to_append);
+        } else if (chars_to_append.equals("BACKSPACE")) {
+            TextView main_textView = (TextView) findViewById(R.id.main_textView);
+            String cur_text = (String) main_textView.getText();
+            if (cur_text.length() > 0)
+                main_textView.setText(cur_text.substring(0, cur_text.length() - 1));
+        } else {
+            appendText(chars_to_append);
 
-        int soundFile = getSoundFile(chars_to_append);
+            int soundFile = getSoundFile(chars_to_append);
 
-        Log.d(DEBUG_TAG, "Sound file " + Integer.toString(soundFile) + " for letter " + chars_to_append);
+            Log.d(DEBUG_TAG, "Sound file " + Integer.toString(soundFile) + " for letter " + chars_to_append);
 
-        if (soundFile != -1) {
-            playSoundFile(soundFile);
+            if (soundFile != -1) {
+                playSoundFile(soundFile);
+            }
         }
     }
 
@@ -447,19 +454,16 @@ public class MainActivity extends AppCompatActivity {
     public void action_longpress() {
         Log.d(DEBUG_TAG, "Long Press");
 
-        if (GROUP_SELECTION) {
-            selectGroup(5);
-            GROUP_SELECTION = !GROUP_SELECTION;
-        }
     }
 
 
     public void action_doubletap() {
         Log.d(DEBUG_TAG, "Double Tap");
 
-        TextView main_textView = (TextView) findViewById(R.id.main_textView);
-        String cur_text = (String) main_textView.getText();
-        if (cur_text.length() > 0) main_textView.setText(cur_text.substring(0, cur_text.length() - 1));
+        if (GROUP_SELECTION) {
+            selectGroup(5);
+            GROUP_SELECTION = !GROUP_SELECTION;
+        }
     }
 
 
